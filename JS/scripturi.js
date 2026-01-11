@@ -1,5 +1,4 @@
-// Test sa vedem daca scriptul a pornit
-console.log("Scriptul a pornit cu succes!");
+console.log("Script start");
 
 function schimbaCuloare() {
     var mainDiv = document.getElementById('main');
@@ -8,7 +7,6 @@ function schimbaCuloare() {
     }
 }
 
-// Efect imagine alb-negru
 var imgEfect = document.getElementById('img-efect');
 if (imgEfect) {
     imgEfect.addEventListener('mouseover', function() {
@@ -19,7 +17,6 @@ if (imgEfect) {
     });
 }
 
-// Adaugare paragrafe pagina 2
 if (window.location.href.indexOf("pagina2.html") > -1) {
     var tabel = document.getElementById('tabel-joc');
     if (tabel) {
@@ -33,7 +30,6 @@ if (window.location.href.indexOf("pagina2.html") > -1) {
     }
 }
 
-// Login
 function inregistrare() {
     var user = document.getElementById('username').value;
     var pass = document.getElementById('password').value;
@@ -62,24 +58,22 @@ function autentificare() {
     }
 }
 
-// JOCUL
 var jucatorCurent = 'X';
 var bazaDeDate = [];
 
-// ATENTIE: Verifica daca folderul tau pe GitHub este 'DB' sau 'db'
 fetch('DB/jucatori.json')
     .then(function(response) {
         if (!response.ok) {
-            throw new Error("Nu gasesc fisierul JSON. Verifica numele folderului DB/db!");
+            throw new Error("HTTP Error");
         }
         return response.json();
     })
     .then(function(data) {
         bazaDeDate = data;
-        console.log("Date incarcate:", bazaDeDate);
+        console.log(bazaDeDate);
     })
     .catch(function(err) {
-        console.log("Eroare incarcare:", err);
+        console.log(err);
     });
 
 function joaca(celula, echipa1, echipa2) {
@@ -88,7 +82,7 @@ function joaca(celula, echipa1, echipa2) {
         return;
     }
     if (bazaDeDate.length === 0) {
-        alert("Baza de date nu s-a incarcat! Verifica consola (F12) pentru erori.");
+        alert("Baza de date goala sau neincarcata.");
         return;
     }
 
@@ -96,7 +90,6 @@ function joaca(celula, echipa1, echipa2) {
 
     if (nume) {
         var valid = false;
-        // Cautam manual pentru compatibilitate maxima
         for (var i = 0; i < bazaDeDate.length; i++) {
             var item = bazaDeDate[i];
             var key1 = echipa1 + "-" + echipa2;
@@ -114,8 +107,10 @@ function joaca(celula, echipa1, echipa2) {
             celula.innerText = jucatorCurent;
             celula.style.color = (jucatorCurent === 'X') ? 'red' : 'blue';
             jucatorCurent = (jucatorCurent === 'X') ? 'O' : 'X';
+            var status = document.getElementById('jucator-curent');
+            if(status) status.innerText = "Randul lui: " + jucatorCurent;
         } else {
-            alert("Gresit sau jucatorul nu e in lista!");
+            alert("Gresit!");
         }
     }
 }
