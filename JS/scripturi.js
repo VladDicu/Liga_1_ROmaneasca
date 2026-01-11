@@ -1,36 +1,42 @@
+// Test sa vedem daca scriptul a pornit
+console.log("Scriptul a pornit cu succes!");
+
 function schimbaCuloare() {
-    const mainDiv = document.getElementById('main');
+    var mainDiv = document.getElementById('main');
     if (mainDiv) {
         mainDiv.style.backgroundColor = "#ffcc00";
     }
 }
 
-const imgEfect = document.getElementById('img-efect');
+// Efect imagine alb-negru
+var imgEfect = document.getElementById('img-efect');
 if (imgEfect) {
-    imgEfect.addEventListener('mouseover', () => {
+    imgEfect.addEventListener('mouseover', function() {
         imgEfect.style.filter = "grayscale(100%)";
     });
-    imgEfect.addEventListener('mouseout', () => {
+    imgEfect.addEventListener('mouseout', function() {
         imgEfect.style.filter = "none";
     });
 }
 
-if (window.location.href.includes("pagina2.html")) {
-    const tabel = document.getElementById('tabel-joc');
+// Adaugare paragrafe pagina 2
+if (window.location.href.indexOf("pagina2.html") > -1) {
+    var tabel = document.getElementById('tabel-joc');
     if (tabel) {
-        let pBefore = document.createElement("p");
+        var pBefore = document.createElement("p");
         pBefore.innerText = "Acum am pregatit un X si O mai iesit din tipar.";
         tabel.parentNode.insertBefore(pBefore, tabel);
 
-        let pAfter = document.createElement("p");
+        var pAfter = document.createElement("p");
         pAfter.innerText = "Poti sa rezolvi?";
         tabel.parentNode.insertBefore(pAfter, tabel.nextSibling);
     }
 }
 
+// Login
 function inregistrare() {
-    let user = document.getElementById('username').value;
-    let pass = document.getElementById('password').value;
+    var user = document.getElementById('username').value;
+    var pass = document.getElementById('password').value;
     if(user && pass) {
         localStorage.setItem('user', user);
         localStorage.setItem('pass', pass);
@@ -41,67 +47,75 @@ function inregistrare() {
 }
 
 function autentificare() {
-    let user = document.getElementById('username').value;
-    let pass = document.getElementById('password').value;
-    let storedUser = localStorage.getItem('user');
-    let storedPass = localStorage.getItem('pass');
-    const mesajElement = document.getElementById('mesaj-login');
+    var user = document.getElementById('username').value;
+    var pass = document.getElementById('password').value;
+    var storedUser = localStorage.getItem('user');
+    var storedPass = localStorage.getItem('pass');
+    var mesajElement = document.getElementById('mesaj-login');
 
     if (user === storedUser && pass === storedPass) {
         mesajElement.innerText = "Bun venit, " + user + "!";
         mesajElement.style.color = "green";
     } else {
-        mesajElement.innerText = "Eroare: Ne pare rau, dar datele sunt incorecte.";
+        mesajElement.innerText = "Eroare date incorecte.";
         mesajElement.style.color = "red";
     }
 }
 
-let jucatorCurent = 'X';
-let bazaDeDate = [];
+// JOCUL
+var jucatorCurent = 'X';
+var bazaDeDate = [];
 
+// ATENTIE: Verifica daca folderul tau pe GitHub este 'DB' sau 'db'
 fetch('DB/jucatori.json')
-    .then(response => {
+    .then(function(response) {
         if (!response.ok) {
-            throw new Error("Eroare HTTP");
+            throw new Error("Nu gasesc fisierul JSON. Verifica numele folderului DB/db!");
         }
         return response.json();
     })
-    .then(data => {
+    .then(function(data) {
         bazaDeDate = data;
-        console.log(bazaDeDate);
+        console.log("Date incarcate:", bazaDeDate);
     })
-    .catch(err => console.log(err));
+    .catch(function(err) {
+        console.log("Eroare incarcare:", err);
+    });
 
 function joaca(celula, echipa1, echipa2) {
     if (celula.innerText !== "") {
-        alert("Aceasta casuta este deja ocupata!");
+        alert("Ocupat!");
         return;
     }
-
     if (bazaDeDate.length === 0) {
-        alert("Baza de date cu jucatori nu s-a incarcat inca sau este goala!");
+        alert("Baza de date nu s-a incarcat! Verifica consola (F12) pentru erori.");
         return;
     }
 
-    let nume = prompt(`Jucator ${jucatorCurent}: Numeste un fotbalist care a jucat la ${echipa1} si ${echipa2}:`);
+    var nume = prompt("Jucator " + jucatorCurent + ": Cine a jucat la " + echipa1 + " si " + echipa2 + "?");
 
     if (nume) {
-        let valid = bazaDeDate.some(item => {
-            let perecheCorecta = (item.cheie === `${echipa1}-${echipa2}` || item.cheie === `${echipa2}-${echipa1}`);
-            let numeCorect = item.jucator.trim().toLowerCase() === nume.trim().toLowerCase();
-            return perecheCorecta && numeCorect;
-        });
+        var valid = false;
+        // Cautam manual pentru compatibilitate maxima
+        for (var i = 0; i < bazaDeDate.length; i++) {
+            var item = bazaDeDate[i];
+            var key1 = echipa1 + "-" + echipa2;
+            var key2 = echipa2 + "-" + echipa1;
+            
+            if (item.cheie === key1 || item.cheie === key2) {
+                if (item.jucator.trim().toLowerCase() === nume.trim().toLowerCase()) {
+                    valid = true;
+                    break;
+                }
+            }
+        }
 
         if (valid) {
             celula.innerText = jucatorCurent;
-            celula.style.color = jucatorCurent === 'X' ? 'red' : 'blue';
-            jucatorCurent = jucatorCurent === 'X' ? 'O' : 'X';
-            const statusElement = document.getElementById('jucator-curent');
-            if (statusElement) {
-                statusElement.innerText = "Randul lui: " + jucatorCurent;
-            }
+            celula.style.color = (jucatorCurent === 'X') ? 'red' : 'blue';
+            jucatorCurent = (jucatorCurent === 'X') ? 'O' : 'X';
         } else {
-            alert("Gresit! Jucatorul nu este in baza de date sau nu a jucat la aceste echipe.");
+            alert("Gresit sau jucatorul nu e in lista!");
         }
     }
 }
