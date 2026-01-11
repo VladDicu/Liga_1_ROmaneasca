@@ -62,7 +62,7 @@ function autentificare() {
 let jucatorCurent = 'X';
 let bazaDeDate = [];
 
-fetch('db/jucatori.json')
+fetch('DB/jucatori.json')
     .then(response => {
         if (!response.ok) {
             throw new Error("Nu am putut gasi fisierul JSON");
@@ -110,3 +110,4 @@ function joaca(celula, echipa1, echipa2) {
         }
     }
 }
+
