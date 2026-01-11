@@ -5,7 +5,6 @@ function schimbaCuloare() {
     }
 }
 
-// Efect imagine alb-negru
 const imgEfect = document.getElementById('img-efect');
 if (imgEfect) {
     imgEfect.addEventListener('mouseover', () => {
@@ -16,7 +15,6 @@ if (imgEfect) {
     });
 }
 
-// Adaugare paragrafe dinamice pe pagina 2
 if (window.location.href.includes("pagina2.html")) {
     const tabel = document.getElementById('tabel-joc');
     
@@ -31,7 +29,6 @@ if (window.location.href.includes("pagina2.html")) {
     }
 }
 
-// Login - Inregistrare
 function inregistrare() {
     let user = document.getElementById('username').value;
     let pass = document.getElementById('password').value;
@@ -44,7 +41,6 @@ function inregistrare() {
     }
 }
 
-// Login - Autentificare
 function autentificare() {
     let user = document.getElementById('username').value;
     let pass = document.getElementById('password').value;
@@ -63,11 +59,9 @@ function autentificare() {
     }
 }
 
-// --- LOGICA JOCULUI ---
 let jucatorCurent = 'X';
 let bazaDeDate = [];
 
-// Incarcare JSON (Varianta pentru GitHub Pages - fara PHP)
 fetch('db/jucatori.json')
     .then(response => {
         if (!response.ok) {
@@ -82,13 +76,11 @@ fetch('db/jucatori.json')
     .catch(err => console.log("Eroare incarcare JSON: ", err));
 
 function joaca(celula, echipa1, echipa2) {
-    // Daca celula e deja ocupata, nu facem nimic
     if (celula.innerText !== "") {
         alert("Aceasta casuta este deja ocupata!");
         return;
     }
 
-    // Verificam daca baza de date s-a incarcat
     if (bazaDeDate.length === 0) {
         alert("Baza de date cu jucatori nu s-a incarcat inca sau este goala!");
         return;
@@ -97,6 +89,24 @@ function joaca(celula, echipa1, echipa2) {
     let nume = prompt(`Jucator ${jucatorCurent}: Numeste un fotbalist care a jucat la ${echipa1} si ${echipa2}:`);
 
     if (nume) {
-        // Cautam in baza de date
         let valid = bazaDeDate.some(item => {
-            // Verificam cheia (ex: "FCSB-Din
+            let perecheCorecta = (item.cheie === `${echipa1}-${echipa2}` || item.cheie === `${echipa2}-${echipa1}`);
+            let numeCorect = item.jucator.trim().toLowerCase() === nume.trim().toLowerCase();
+            return perecheCorecta && numeCorect;
+        });
+
+        if (valid) {
+            celula.innerText = jucatorCurent;
+            celula.style.color = jucatorCurent === 'X' ? 'red' : 'blue';
+            
+            jucatorCurent = jucatorCurent === 'X' ? 'O' : 'X';
+            
+            const statusElement = document.getElementById('jucator-curent');
+            if (statusElement) {
+                statusElement.innerText = "Randul lui: " + jucatorCurent;
+            }
+        } else {
+            alert("Gresit! Jucatorul nu este in baza de date sau nu a jucat la aceste echipe.");
+        }
+    }
+}
