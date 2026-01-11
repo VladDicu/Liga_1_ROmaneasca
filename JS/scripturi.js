@@ -17,11 +17,11 @@ if (window.location.href.includes("pagina2.html")) {
     const tabel = document.getElementById('tabel-joc');
     
     let pBefore = document.createElement("p");
-    pBefore.innerText = "Paragraf adaugat cu js inainte de tabel";
+    pBefore.innerText = "Acum am pregatit un X si O mai iesit din tipar.";
     tabel.parentNode.insertBefore(pBefore, tabel);
 
     let pAfter = document.createElement("p");
-    pAfter.innerText = "Paragraf adaugat cu js dupa tabel";
+    pAfter.innerText = "Poti sa rezolvi?";
     tabel.parentNode.insertBefore(pAfter, tabel.nextSibling);
 }
 
@@ -79,3 +79,4 @@ function joaca(celula, echipa1, echipa2) {
     }
 
 }
+
