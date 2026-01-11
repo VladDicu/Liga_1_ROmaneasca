@@ -1,7 +1,7 @@
 function schimbaCuloare() {
     const mainDiv = document.getElementById('main');
     if (mainDiv) {
-        mainDiv.style.backgroundColor = "#ffcc00";
+        mainDiv.style.backgroundColor = "#ffcc00"; 
     }
 }
 
@@ -62,10 +62,10 @@ function autentificare() {
 let jucatorCurent = 'X';
 let bazaDeDate = [];
 
-fetch('db/jucatori.json')
+fetch('DB/jucatori.json') 
     .then(response => {
         if (!response.ok) {
-            throw new Error("Nu am putut gasi fisierul JSON");
+            throw new Error("Nu am putut gasi fisierul JSON (Verifica numele folderului DB!)");
         }
         return response.json();
     })
