@@ -110,4 +110,3 @@ function joaca(celula, echipa1, echipa2) {
         }
     }
 }
-
