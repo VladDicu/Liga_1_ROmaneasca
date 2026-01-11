@@ -1,0 +1,82 @@
+/* Schema 1 de culori */
+body { margin: 0; font-family: Arial, sans-serif; }
+
+header {
+    background-color: #66B032; /* Culoare 1 */
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+nav {
+    background-color: #EBF7E3; /* Culoare 2 */
+    overflow: hidden;
+}
+
+nav ul {
+    list-style-type: none; /* Lista neordonata ca meniu */
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+nav li { display: inline-block; }
+
+nav a {
+    display: block;
+    padding: 14px 16px;
+    text-decoration: none;
+    color: #375F1B;
+    font-weight: bold;
+}
+
+nav a:hover { background-color: #ddd; }
+
+#main {
+    background-color: #9BD770; /* Culoare 3 */
+    padding: 20px;
+    min-height: 400px;
+    margin: 20px;
+}
+
+footer {
+    background-color: #375F1B; /* Culoare 4 */
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Stiluri Imagini */
+img { border: 5px solid #EBF7E3; }
+
+.animata {
+    width: 25%;
+    position: relative;
+    animation: oscilatie 4s infinite; /* 4 pasi, 1 secunda per pas = 4s total */
+}
+
+@keyframes oscilatie {
+    0% { left: 0; }
+    50% { left: 50%; } /* Se duce spre dreapta */
+    100% { left: 0; }
+}
+
+/* Tabel */
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background: white;
+}
+td, th {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+    height: 50px;
+    width: 100px;
+}
+td { cursor: pointer; }
+td:hover { background-color: #eee; }
