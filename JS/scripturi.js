@@ -51,7 +51,7 @@ function autentificare() {
 let jucatorCurent = 'X';
 
 let bazaDeDate = [];
-fetch('db/jucatori.json')
+fetch('db/jucatori.json') 
     .then(response => response.json())
     .then(data => bazaDeDate = data)
     .catch(err => console.log("Eroare incarcare JSON: ", err));
@@ -77,4 +77,5 @@ function joaca(celula, echipa1, echipa2) {
             alert("Gresit! Jucatorul nu este in baza de date sau nu a jucat la aceste echipe.");
         }
     }
+
 }
