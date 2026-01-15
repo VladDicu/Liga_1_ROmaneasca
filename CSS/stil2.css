@@ -1,0 +1,96 @@
+
+body { 
+    margin: 0; 
+    font-family: Arial, sans-serif; 
+}
+
+header {
+    background-color: #183BF0; 
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+nav {
+    background-color: #DDE3FD; 
+    overflow: hidden;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center; 
+}
+
+nav li { 
+    display: inline-block; 
+}
+
+nav a {
+    display: block;
+    padding: 14px 16px;
+    text-decoration: none;
+    color: #0A2299;
+    font-weight: bold;
+}
+
+nav a:hover { 
+    background-color: #b0c4de; 
+}
+
+#main {
+    background-color: #798EF6; 
+    padding: 20px;
+    min-height: 400px;
+    margin: 20px;
+    color: white; 
+}
+
+footer {
+    background-color: #0A2299; 
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+img { 
+    border: 10px solid #DDE3FD; 
+}
+
+.animata {
+    width: 20%;
+    position: relative;
+    animation: oscilatie2 5s infinite; 
+    animation-timing-function: steps(5); 
+}
+
+@keyframes oscilatie2 {
+    0% { left: 0; }
+    50% { left: 80%; } /* Se duce pana in dreapta */
+    100% { left: 0; }
+}
+
+table {
+    width: 90%;
+    border-collapse: collapse;
+    background: white;
+    color: black;
+    
+    /* Aliniere la dreapta */
+    margin-left: auto; 
+    margin-right: 0; 
+}
+
+td, th {
+    border: 2px solid #0A2299;
+    padding: 10px;
+    text-align: center;
+    height: 50px;
+    width: 100px;
+}
+td { cursor: pointer; }
+td:hover { background-color: #eee; }
